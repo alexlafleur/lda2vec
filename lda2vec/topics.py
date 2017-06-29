@@ -22,6 +22,7 @@ def prob_words(context, vocab, temperature=1.0):
     """
     dot = np.dot(vocab, context)
     prob = _softmax(dot / temperature)
+    print "context " , context, "vocab ", vocab, "dot ", dot, "prob ",prob
     return prob
 
 
@@ -60,6 +61,8 @@ def prepare_topics(weights, factors, word_vectors, vocab, temperature=1.0,
         This dictionary is readily consumed by pyLDAVis for topic
         visualization.
     """
+    #weights = np.nan_to_num(weights)
+    #print "weights ", weights
     # Map each factor vector to a word
     topic_to_word = []
     msg = "Vocabulary size did not match size of word vectors"
@@ -67,12 +70,16 @@ def prepare_topics(weights, factors, word_vectors, vocab, temperature=1.0,
     if normalize:
         word_vectors /= np.linalg.norm(word_vectors, axis=1)[:, None]
     # factors = factors / np.linalg.norm(factors, axis=1)[:, None]
+
     for factor_vector in factors:
         factor_to_word = prob_words(factor_vector, word_vectors,
                                     temperature=temperature)
+        print factor_to_word, np.ravel(factor_to_word)
         topic_to_word.append(np.ravel(factor_to_word))
-    topic_to_word = np.array(topic_to_word)
     msg = "Not all rows in topic_to_word sum to 1"
+    topic_to_word = np.array(topic_to_word)
+    #topic_to_word = np.nan_to_num(topic_to_word)
+    #print(topic_to_word)
     assert np.allclose(np.sum(topic_to_word, axis=1), 1), msg
     # Collect document-to-topic distributions, e.g. theta
     doc_to_topic = _softmax_2d(weights)

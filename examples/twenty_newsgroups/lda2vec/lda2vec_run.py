@@ -19,9 +19,10 @@ from lda2vec import utils
 from lda2vec import prepare_topics, print_top_words_per_topic, topic_coherence
 from lda2vec_model import LDA2Vec
 
-gpu_id = int(os.getenv('CUDA_GPU', 0))
-cuda.get_device(gpu_id).use()
-print "Using GPU " + str(gpu_id)
+
+#gpu_id = int(os.getenv('CUDA_GPU', 0))
+cuda.get_device().use()
+#print "Using GPU " + str(gpu_id)
 
 data_dir = os.getenv('data_dir', '../data/')
 fn_vocab = '{data_dir:s}/vocab.pkl'.format(data_dir=data_dir)
@@ -83,6 +84,9 @@ optimizer.setup(model)
 clip = chainer.optimizer.GradientClipping(5.0)
 optimizer.add_hook(clip)
 
+print model.mixture.factors
+print model.mixture.factors.W.data
+
 j = 0
 epoch = 0
 fraction = batchsize * 1.0 / flattened.shape[0]
@@ -104,11 +108,12 @@ for epoch in range(200):
     np.savez('topics.pyldavis', **data)
     for d, f in utils.chunks(batchsize, doc_ids, flattened):
         t0 = time.time()
-        optimizer.zero_grads()
+        optimizer.target.zerograds()
         l = model.fit_partial(d.copy(), f.copy())
         prior = model.prior()
         loss = prior * fraction
         loss.backward()
+        print "Prior: ",prior," Loss: ", loss
         optimizer.update()
         msg = ("J:{j:05d} E:{epoch:05d} L:{loss:1.3e} "
                "P:{prior:1.3e} R:{rate:1.3e}")
