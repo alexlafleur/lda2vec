@@ -24,4 +24,4 @@ ____________________________
 - try lda2vec with german Word2Vec Vector:
 
   - pre-built: https://tubcloud.tu-berlin.de/public.php?service=files&t=dc4f9d207bcaf4d4fae99ab3fbb1af16
-  - build on our own using https://github.com/devmount/GermanWordEmbeddings
+  - build our own using https://github.com/devmount/GermanWordEmbeddings
