@@ -16,3 +16,12 @@ _____________________________
   RUN	pip install numpy scipy pandas pyxdameraulevenshtein sklearn spacy h5py cupy gensim
   
   ENTRYPOINT /bin/bash
+
+
+To Do
+____________________________
+
+- try lda2vec with german Word2Vec Vector:
+
+  - pre-built: https://tubcloud.tu-berlin.de/public.php?service=files&t=dc4f9d207bcaf4d4fae99ab3fbb1af16
+  - build on our own using https://github.com/devmount/GermanWordEmbeddings
