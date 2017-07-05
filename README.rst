@@ -25,4 +25,6 @@ ____________________________
 
   - pre-built: https://tubcloud.tu-berlin.de/public.php?service=files&t=dc4f9d207bcaf4d4fae99ab3fbb1af16
   - build our own using https://github.com/devmount/GermanWordEmbeddings
-  - How to handle Emoticons? See here https://apps.timwhitlock.info/emoji/tables/unicode#block-1-emoticons
+  - How to handle Emoticons? See here:
+      - https://apps.timwhitlock.info/emoji/tables/unicode#block-1-emoticons
+      - https://github.com/laurenancona/twimoji/blob/gh-pages/twitterEmojiProject/emoticon_conversion_noGraphic.csv CSV File containing Unicode Emoticons with Description
